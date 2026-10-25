@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>opencode suite — your machine, your keys, your rules</title>
+<meta name="description" content="A set of single-purpose installers that give OpenCode memory of your real work: company tickets in Aztra and your Google Calendar, Gmail, Drive, Docs, Sheets and Tasks. Runs locally. No servers, no subscription." />
+<meta name="theme-color" content="#fdf9f6" />
+<link rel="canonical" href="https://opencode-suite.vercel.app/" />
+<meta property="og:title" content="opencode suite — your machine, your keys, your rules" />
+<meta property="og:description" content="A set of single-purpose installers that give OpenCode memory of your real work: company tickets in Aztra and your Google Calendar, Gmail, Drive, Docs, Sheets and Tasks. Runs locally. No servers, no subscription." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="/fonts/outfit-800-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/plus-jakarta-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/fonts.css" />
+<link rel="stylesheet" href="/style.css" />
+<script>
+  // Apply the stored theme before first paint to prevent a flash of the
+  // wrong theme. Kept inline and tiny on purpose.
+  (function () {
+    try {
+      var t = null;
+      // ?theme=light|dark override — used for screenshots and testing.
+      var q = new URLSearchParams(location.search).get('theme');
+      if (q === 'light' || q === 'dark') t = q;
+      if (!t) t = localStorage.getItem('opencode-theme');
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+</head>
+<body>
+<div class="atmosphere" aria-hidden="true"></div>
+<div class="page-glow" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><svg class="brand-star" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 1.6l2.3 6.4 6.4 2.3-6.4 2.3-2.3 6.4-2.3-6.4L3.3 10.3l6.4-2.3z"/><path d="M19.2 15.4l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z" opacity=".55"/></svg>opencode<span class="dim">-suite</span></a>
+    <div class="nav-links" id="nav-links">
+      <a href="/#repos">Repos</a>
+      <a href="/#safety">Safety</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/data-access.html">Data</a>
+      <a href="/terms.html">Terms</a>
+      <a class="btn btn-primary" href="https://github.com/YsinHsim/opencode-google">GitHub</a>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    </button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">3 repos · one machine · zero cloud</p>
+    <h1 class="hero-h1">
+      <span class="line">Your agent,</span>
+      <span class="line indent">finally knows</span>
+      <span class="line"><span class="mark">your work.</span> <span class="kana">✦ しごと</span></span>
+    </h1>
+    <p class="lede">
+      OpenCode is sharp but blind. It can't see your tickets, your inbox, or your calendar.
+      These installers fix that with local MCP servers — each owning exactly one secret and
+      one config entry, so you can add, update or remove them independently.
+    </p>
+    <p class="lede" style="margin-top:.9rem;font-size:.95em">
+      New here? Start with the base installer's <code>--interview</code> mode: it asks a
+      handful of questions and writes a config for <strong>your</strong> provider — OpenAI,
+      Anthropic, Ollama, or any OpenAI-compatible endpoint. Then add Google or Aztra only
+      if you want them.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#install">Install the suite →</a>
+      <a class="btn btn-ghost" href="#repos">See what each one does</a>
+    </div>
+    <div class="hero-meta">
+      <span><b>0</b> cloud servers</span>
+      <span><b>0</b> subscriptions</span>
+      <span><b>3</b> repos</span>
+      <span>macOS · Linux · Termux</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats" data-reveal>
+    <div class="stat">
+      <span class="stat-n">22</span>
+      <span class="stat-l">Google MCP tools</span>
+    </div>
+    <div class="stat">
+      <span class="stat-n">7</span>
+      <span class="stat-l">Google scopes</span>
+    </div>
+    <div class="stat">
+      <span class="stat-n">0600</span>
+      <span class="stat-l">Key file mode</span>
+    </div>
+    <div class="stat">
+      <span class="stat-n">RM 0</span>
+      <span class="stat-l">Google API charge</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap split">
+    <div data-reveal>
+      <p class="eyebrow">The gap</p>
+      <h2>A great agent with<br /><span class="mark mark-amber">no context.</span></h2>
+    </div>
+    <div data-reveal>
+      <p class="lede">
+        You open OpenCode, ask it to book a slot, and it asks which calendar. Ask it about a
+        client email and you paste it in by hand. Every session starts from zero because the
+        agent can't reach the systems where your actual work lives.
+      </p>
+      <p style="margin-top:1.15rem;color:var(--muted)">
+        The usual fix is a hosted integration that wants your whole Google account and a
+        monthly fee. This suite takes the other route: small servers on your own machine,
+        talking directly to the APIs, holding the narrowest scopes that still do the job.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<section id="repos">
+  <div class="wrap">
+    <div data-reveal>
+      <p class="eyebrow">Single-purpose installers · 3 and counting</p>
+      <h2>Install in<br />this order.</h2>
+      <p class="lede" style="margin-top:1.25rem">
+        Step one is not optional. Run it with <code>--interview</code> unless you want the
+        author's reference config. Every step after it is independent — skip any of them
+        and the rest still works.
+      </p>
+    </div>
+
+    <div class="cards">
+      <a class="card" style="--accent-raw: var(--mint); --accent: var(--mint-d)" href="https://github.com/YsinHsim/opencode-bootstrap" data-reveal>
+        <div class="card-step"><span>01 · Base</span><span class="pill">Public</span></div>
+        <h3>opencode-bootstrap</h3>
+        <p>One-command setup for the whole environment on a new machine.</p>
+        <ul class="card-list">
+          <li>Two paths: the author&rsquo;s reference config, or <code>--interview</code> — a config generated from your answers</li>
+          <li>Interview asks your provider (OpenAI, Anthropic, Ollama, any custom endpoint), keys, MCP servers, tone and language</li>
+          <li>Nothing you decline is written. No placeholder sections, no surprises</li>
+          <li>Installs OpenCode CLI and GitHub CLI if missing; backs up the live config before touching it</li>
+        </ul>
+        <div class="card-foot"><span>macOS · Linux · Termux</span><span class="arrow" aria-hidden="true">→</span></div>
+      </a>
+      <a class="card" style="--accent-raw: var(--butter); --accent: var(--butter-d)" href="https://github.com/YsinHsim/opencode-aztra" data-reveal>
+        <div class="card-step"><span>02 · Company</span><span class="pill">Public</span></div>
+        <h3>opencode-aztra</h3>
+        <p>Connects OpenCode to Aztra as a remote MCP server.</p>
+        <ul class="card-list">
+          <li>Projects, issues and sprints</li>
+          <li>Time logs, goals and workload</li>
+          <li>Wiki pages for decisions and handoffs</li>
+          <li>Prompts once for a workspace API key</li>
+        </ul>
+        <div class="card-foot"><span>Key → <code>aztra.key</code></span><span class="arrow" aria-hidden="true">→</span></div>
+      </a>
+      <a class="card" style="--accent-raw: var(--sky); --accent: var(--sky-d)" href="https://github.com/YsinHsim/opencode-google" data-reveal>
+        <div class="card-step"><span>03 · Google</span><span class="pill">Public</span></div>
+        <h3>opencode-google</h3>
+        <p>Local MCP server for your Google account. 22 tools, seven scopes.</p>
+        <ul class="card-list">
+          <li>Calendar: read, find free slots, create, move</li>
+          <li>Gmail search and thread reading — read-only</li>
+          <li>Docs, Sheets and Drive uploads inside one folder</li>
+          <li>Tasks and Contacts</li>
+        </ul>
+        <div class="card-foot"><span>Runs on your Mac</span><span class="arrow" aria-hidden="true">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<section id="safety">
+  <div class="wrap">
+    <div data-reveal>
+      <p class="eyebrow">Why this doesn't need blind trust</p>
+      <h2>Every action is<br /><span class="mark mark-mint">a class.</span></h2>
+      <p class="lede" style="margin-top:1.25rem">
+        The safety model is enforced in code, not by asking the model nicely. A destructive
+        action cannot execute on its first call even if the prompt says it should.
+      </p>
+    </div>
+
+    <div class="classes">
+      <div class="class-card r" data-reveal>
+        <span class="class-tag">✦ Class R</span>
+        <h3>Do it, then report</h3>
+        <p>Creating is additive. If it goes wrong you delete the result yourself. All reads are Class R by definition.</p>
+      </div>
+      <div class="class-card c" data-reveal>
+        <span class="class-tag">✦ Class C</span>
+        <h3>Preview, then wait</h3>
+        <p>The first call does nothing. It returns a field-by-field before/after and a one-time token bound to that exact payload. Change a value and the token is refused.</p>
+      </div>
+      <div class="class-card x" data-reveal>
+        <span class="class-tag">✦ Class X</span>
+        <h3>No tool exists</h3>
+        <p>No send-mail. No permanent delete. No changing sharing or ownership. If you ask, it explains the manual path in the UI instead.</p>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature" data-reveal>
+        <span class="feature-n">01</span>
+        <h3>Drive is fenced</h3>
+        <p>Uploads land only in one <code>opencode/</code> folder. The <code>drive.file</code> scope means Google itself limits access to files the app created. A path outside the fence is refused in code.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <span class="feature-n">02</span>
+        <h3>Narrow scopes, on purpose</h3>
+        <p>Gmail is <code>readonly</code>. Draft creation needs <code>gmail.compose</code> and is deliberately not requested. YouTube was excluded because <code>search.list</code> costs 100 units against a 10,000/day quota.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <span class="feature-n">03</span>
+        <h3>Secrets stay off the repo</h3>
+        <p>Keys are read at runtime through <code>{file:…}</code> references, so <code>opencode.json</code> is safe to commit, sync or share. Nothing secret is written into a config file.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <span class="feature-n">04</span>
+        <h3>Write provenance</h3>
+        <p>Files the agent creates carry an <code>[OpenCode]</code> title prefix. Anything without it is treated as your own work: readable, but never rewritten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<section id="install">
+  <div class="wrap split">
+    <div data-reveal>
+      <p class="eyebrow">Install</p>
+      <h2>One clone<br />per repo.</h2>
+      <p class="lede" style="margin-top:1.25rem">
+        Each installer detects your platform, backs up the live config before touching it,
+        and only writes under <code>~/.config/opencode</code> and the repo directory.
+      </p>
+      <div class="callout">
+        <strong>Before you start:</strong> git, python3, and a Google account. The Google
+        Cloud Console setup is a one-time ten minute step with no billing account and no
+        credit card.
+      </div>
+    </div>
+
+    <div data-reveal>
+      <div class="term">
+        <div class="term-bar">
+          <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+          <span class="term-title">zsh — install</span>
+          <button class="btn btn-ghost" data-copy="#cmd-install" style="margin-left:auto;padding:.25rem .7rem;font-size:.68rem">Copy</button>
+        </div>
+        <div class="term-body">
+<pre id="cmd-install"><span class="c-dim"># 01 — base: your provider, your keys, your rules</span>
+<span class="c-prompt">$</span> <span class="c-cmd">git clone https://github.com/YsinHsim/opencode-bootstrap.git</span>
+<span class="c-prompt">$</span> <span class="c-cmd">cd opencode-bootstrap &amp;&amp; ./install.sh --interview</span>
+
+<span class="c-dim"># 02 — company: prompts for your Aztra key</span>
+<span class="c-prompt">$</span> <span class="c-cmd">git clone https://github.com/YsinHsim/opencode-aztra.git</span>
+<span class="c-prompt">$</span> <span class="c-cmd">cd ../opencode-aztra &amp;&amp; ./install.sh</span>
+
+<span class="c-dim"># 03 — google: browser OAuth, then create the Drive folder</span>
+<span class="c-prompt">$</span> <span class="c-cmd">git clone https://github.com/YsinHsim/opencode-google.git</span>
+<span class="c-prompt">$</span> <span class="c-cmd">cd ../opencode-google &amp;&amp; ./install.sh</span>
+<span class="c-prompt">$</span> <span class="c-cmd">source .venv/bin/activate &amp;&amp; python auth.py</span>
+<span class="c-prompt">$</span> <span class="c-cmd">python setup_check.py --setup</span>
+<span class="c-prompt">$</span> <span class="c-cmd">python setup_check.py --selftest</span>
+
+<span class="c-ok">Granted scopes</span>
+  <span class="c-ok">[PASS]</span> Calendar (read/write)
+  <span class="c-ok">[PASS]</span> Gmail (read only)
+  <span class="c-ok">[PASS]</span> Drive (app-created files)
+  <span class="c-dim">… 4 more</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<section>
+  <div class="wrap">
+    <div data-reveal>
+      <p class="eyebrow">In practice</p>
+      <h2>Things you can<br />just ask.</h2>
+    </div>
+    <div class="features">
+      <div class="feature" data-reveal>
+        <span class="feature-n">→</span>
+        <h3>&ldquo;What's on my calendar this week?&rdquo;</h3>
+        <p>Reads the window you name. Silence is the correct answer when nothing is on.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <span class="feature-n">→</span>
+        <h3>&ldquo;Find me a 90 minute free slot on Thursday&rdquo;</h3>
+        <p>Gaps inside working hours, Mon–Fri, defaulting to Asia/Kuala_Lumpur.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <span class="feature-n">→</span>
+        <h3>&ldquo;Move the HSSB call to Friday 3pm&rdquo;</h3>
+        <p>Class C. You see the before/after, say yes, and only then does it move.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <span class="feature-n">→</span>
+        <h3>&ldquo;Any unread email from clients in the last 2 days?&rdquo;</h3>
+        <p>Gmail syntax, capped results. One thread at a time, not the whole mailbox.</p>
+      </div>
+      <div class="feature" data-reveal>
+        <span class="feature-n">→</span>
+        <h3>&ldquo;Make a CR for the sales order monitor and upload it&rdquo;</h3>
+        <p>Creates the Doc inside <code>opencode/</code> and hands you the link. Moving it out afterwards is expected.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<section>
+  <div class="wrap split">
+    <div data-reveal>
+      <p class="eyebrow">Who runs this</p>
+      <h2>Built on one<br /><span class="mark mark-sky">real desk.</span></h2>
+    </div>
+    <div data-reveal>
+      <p class="lede">
+        The opencode suite is a toolset by <strong>Yasin Hassim</strong>, a software
+        developer and system analyst in Kota Kinabalu, Sabah, Malaysia — written for his
+        own desk first, and made public so anyone can run the same setup.
+      </p>
+      <p style="margin-top:1.15rem;color:var(--muted)">
+        It started as a way to stop re-pasting context into every session: tickets in one
+        system, schedule and inbox in another, and an agent that could see neither. Each
+        installer is small, does one thing, and owns exactly one secret — so the whole
+        thing stays auditable in an afternoon.
+      </p>
+      <p style="margin-top:1.15rem;color:var(--muted)">
+        The repos are public and readable. There is no account to create and no data sent
+        to a server operated by this project, because no such server exists.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-ghost" href="https://yasinhassim.vercel.app/">Portfolio →</a>
+        <a class="btn btn-ghost" href="https://github.com/YsinHsim">GitHub</a>
+        <a class="btn btn-ghost" href="/privacy.html">Privacy policy</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div>
+      <a class="brand" href="/" style="margin-bottom:.9rem"><svg class="brand-star" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 1.6l2.3 6.4 6.4 2.3-6.4 2.3-2.3 6.4-2.3-6.4L3.3 10.3l6.4-2.3z"/><path d="M19.2 15.4l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z" opacity=".55"/></svg>opencode<span class="dim">-suite</span></a>
+      <p style="color:var(--muted);font-size:.87rem;max-width:32ch">
+        Single-purpose installers for OpenCode. Local MCP servers, narrow scopes,
+        secrets that never leave your machine.
+      </p>
+    </div>
+    <div>
+      <h4>Repos</h4>
+      <ul class="foot-links">
+        <li><a href="https://github.com/YsinHsim/opencode-bootstrap">opencode-bootstrap</a></li>
+        <li><a href="https://github.com/YsinHsim/opencode-aztra">opencode-aztra</a></li>
+        <li><a href="https://github.com/YsinHsim/opencode-google">opencode-google</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Google app</h4>
+      <ul class="foot-links">
+        <li><a href="/privacy.html">Privacy policy</a></li>
+        <li><a href="/terms.html">Terms of service</a></li>
+        <li><a href="/support.html">Support</a></li>
+        <li><a href="/data-access.html">Data access</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul class="foot-links">
+        <li><a href="https://github.com/YsinHsim">GitHub</a></li>
+        <li><a href="https://yasinhassim.vercel.app/">Portfolio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Yasin Hassim · Kota Kinabalu, Malaysia</span>
+    <span class="mono">✦ no cookies · no trackers · no accounts</span>
+  </div>
+</footer>
+
+<script src="/main.js" defer></script>
+</body>
+</html>

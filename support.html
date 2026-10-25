@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Support — opencode suite</title>
+<meta name="description" content="Get help with opencode-google and the opencode suite. Contact routes, known issues, and the fixes that actually work." />
+<meta name="theme-color" content="#fdf9f6" />
+<link rel="canonical" href="https://opencode-suite.vercel.app/support.html" />
+<meta property="og:title" content="Support — opencode suite" />
+<meta property="og:description" content="Get help with opencode-google and the opencode suite. Contact routes, known issues, and the fixes that actually work." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="/fonts/outfit-800-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/plus-jakarta-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/fonts.css" />
+<link rel="stylesheet" href="/style.css" />
+<script>
+  // Apply the stored theme before first paint to prevent a flash of the
+  // wrong theme. Kept inline and tiny on purpose.
+  (function () {
+    try {
+      var t = null;
+      // ?theme=light|dark override — used for screenshots and testing.
+      var q = new URLSearchParams(location.search).get('theme');
+      if (q === 'light' || q === 'dark') t = q;
+      if (!t) t = localStorage.getItem('opencode-theme');
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+</head>
+<body>
+<div class="atmosphere" aria-hidden="true"></div>
+<div class="page-glow" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><svg class="brand-star" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 1.6l2.3 6.4 6.4 2.3-6.4 2.3-2.3 6.4-2.3-6.4L3.3 10.3l6.4-2.3z"/><path d="M19.2 15.4l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z" opacity=".55"/></svg>opencode<span class="dim">-suite</span></a>
+    <div class="nav-links" id="nav-links">
+      <a href="/#repos">Repos</a>
+      <a href="/#safety">Safety</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/data-access.html">Data</a>
+      <a href="/terms.html">Terms</a>
+      <a class="btn btn-primary" href="https://github.com/YsinHsim/opencode-google">GitHub</a>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    </button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <p class="eyebrow">Support</p>
+    <h1>Something broken?</h1>
+    <p class="lede">
+      opencode-google and opencode-aztra are supported on a best-effort basis by one person
+      in Kota Kinabalu. Most problems have a known cause listed below.
+    </p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section style="padding-block:clamp(1.5rem,4vw,2.75rem)">
+      <div class="classes">
+        <div class="class-card r">
+          <span class="class-tag">✦ Fastest</span>
+          <h3>Portfolio</h3>
+          <p>
+            <a href="https://yasinhassim.vercel.app/">yasinhassim.vercel.app</a><br />
+            Use the contact form there. Include your OS, the exact error text, and what you ran.
+            Usually answered within a few days.
+          </p>
+        </div>
+        <div class="class-card c">
+          <span class="class-tag">✦ Public</span>
+          <h3>GitHub issue</h3>
+          <p>
+            <a href="https://github.com/YsinHsim/opencode-google/issues">opencode-google issues</a><br />
+            Best for reproducible bugs. Never paste tokens, <code>client_secret.json</code>, or
+            email contents into an issue.
+          </p>
+        </div>
+        <div class="class-card x">
+          <span class="class-tag">✦ Read first</span>
+          <h3>The README</h3>
+          <p>
+            <a href="https://github.com/YsinHsim/opencode-google#troubleshooting">Troubleshooting table</a><br />
+            Covers nearly every install and auth failure with the exact fix.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-block:clamp(1.5rem,4vw,2.75rem)">
+      <div>
+        <p class="eyebrow">Known causes</p>
+        <h2 style="font-size:clamp(1.4rem,3vw,2.1rem)">Before you write in</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Login fails after sign-in, blank or 403 page</td>
+                <td>Your Gmail is not in the consent screen's <strong>Test users</strong> list</td>
+                <td>Google Cloud Console → OAuth consent screen → add the account</td>
+              </tr>
+              <tr>
+                <td>Tokens die after exactly 7 days</td>
+                <td>The consent screen is still in <strong>Testing</strong></td>
+                <td>Publish the app, or re-run <code>python auth.py</code> weekly</td>
+              </tr>
+              <tr>
+                <td><code>Missing OAuth client file</code></td>
+                <td><code>client_secret.json</code> not placed</td>
+                <td>Move it to <code>~/.config/opencode/google/</code> and <code>chmod 600</code></td>
+              </tr>
+              <tr>
+                <td><code>this does not look like a Desktop app client</code></td>
+                <td>A <em>Web application</em> client was created</td>
+                <td>Recreate the OAuth client as <strong>Desktop app</strong></td>
+              </tr>
+              <tr>
+                <td><code>redirect_uri_mismatch</code></td>
+                <td>Same cause as above</td>
+                <td>Recreate as <strong>Desktop app</strong></td>
+              </tr>
+              <tr>
+                <td><code>Not authorized for X</code></td>
+                <td>A scope was not ticked at consent</td>
+                <td>Delete <code>token.json</code>, re-run <code>auth.py</code>, tick all scopes</td>
+              </tr>
+              <tr>
+                <td><code>Refused: … not inside the app folder</code></td>
+                <td>Target points at a normal Drive folder</td>
+                <td>Uploads go to <code>opencode/</code> only. Move files afterwards in Drive</td>
+              </tr>
+              <tr>
+                <td>Server missing in OpenCode</td>
+                <td>OpenCode not restarted, or config not patched</td>
+                <td>Restart OpenCode; check the <code>mcp</code> block for <code>opencode-google</code></td>
+              </tr>
+              <tr>
+                <td><code>invalid_grant</code> after re-auth</td>
+                <td>An old token is still present</td>
+                <td>Delete <code>token.json</code>, then <code>python auth.py</code></td>
+              </tr>
+              <tr>
+                <td>Publish app blocked, demands Branding fields</td>
+                <td>Branding page incomplete</td>
+                <td>Fill app name, support email, developer email. Homepage and logo are optional</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:1.75rem">
+        <strong>Never send secrets.</strong> Do not paste <code>token.json</code>,
+        <code>client_secret.json</code>, your Aztra key, or the contents of an email thread into
+        a support email or a public issue. A refresh token is equivalent to your password for
+        the scopes granted. If one leaks, revoke it immediately at
+        <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.
+      </div>
+    </section>
+
+    <section style="padding-block:clamp(1.5rem,4vw,2.75rem)">
+      <div class="split">
+        <div>
+          <p class="eyebrow">Scope of support</p>
+          <h2 style="font-size:clamp(1.4rem,3vw,2.1rem)">What I can help with</h2>
+        </div>
+        <div>
+          <p class="lede">In scope:</p>
+          <ul style="color:var(--muted);padding-left:1.05rem;margin-bottom:1.35rem">
+            <li>Installer failures on macOS, Linux, or Termux</li>
+            <li>OAuth errors in <code>auth.py</code> and <code>setup_check.py</code></li>
+            <li>Tool behaviour that contradicts <code>SOP.md</code></li>
+            <li>Bugs in the MCP server itself</li>
+          </ul>
+          <p class="lede">Out of scope:</p>
+          <ul style="color:var(--muted);padding-left:1.05rem">
+            <li>Your Google Cloud project's billing or quota</li>
+            <li>Google's verification and CASA assessment process</li>
+            <li>Debugging your own OpenCode configuration or model provider</li>
+            <li>Recovering a credential you have lost or leaked</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div>
+      <a class="brand" href="/" style="margin-bottom:.9rem"><svg class="brand-star" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 1.6l2.3 6.4 6.4 2.3-6.4 2.3-2.3 6.4-2.3-6.4L3.3 10.3l6.4-2.3z"/><path d="M19.2 15.4l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z" opacity=".55"/></svg>opencode<span class="dim">-suite</span></a>
+      <p style="color:var(--muted);font-size:.87rem;max-width:32ch">
+        Single-purpose installers for OpenCode. Local MCP servers, narrow scopes,
+        secrets that never leave your machine.
+      </p>
+    </div>
+    <div>
+      <h4>Repos</h4>
+      <ul class="foot-links">
+        <li><a href="https://github.com/YsinHsim/opencode-bootstrap">opencode-bootstrap</a></li>
+        <li><a href="https://github.com/YsinHsim/opencode-aztra">opencode-aztra</a></li>
+        <li><a href="https://github.com/YsinHsim/opencode-google">opencode-google</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Google app</h4>
+      <ul class="foot-links">
+        <li><a href="/privacy.html">Privacy policy</a></li>
+        <li><a href="/terms.html">Terms of service</a></li>
+        <li><a href="/support.html">Support</a></li>
+        <li><a href="/data-access.html">Data access</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul class="foot-links">
+        <li><a href="https://github.com/YsinHsim">GitHub</a></li>
+        <li><a href="https://yasinhassim.vercel.app/">Portfolio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Yasin Hassim · Kota Kinabalu, Malaysia</span>
+    <span class="mono">✦ no cookies · no trackers · no accounts</span>
+  </div>
+</footer>
+
+<script src="/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# deps
+node_modules/
+
+# build output
+dist/
+.vercel/
+
+# secrets — never commit any of these
+.env
+.env.*
+!.env.example
+*.key
+client_secret*.json
+token.json
+
+# OS noise
+.DS_Store
+
+# logs
+npm-debug.log*

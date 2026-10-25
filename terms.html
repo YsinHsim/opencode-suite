@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Terms of service — opencode suite</title>
+<meta name="description" content="Terms for using the opencode-suite installers and the opencode-google MCP server. Plain terms for personal software." />
+<meta name="theme-color" content="#fdf9f6" />
+<link rel="canonical" href="https://opencode-suite.vercel.app/terms.html" />
+<meta property="og:title" content="Terms of service — opencode suite" />
+<meta property="og:description" content="Terms for using the opencode-suite installers and the opencode-google MCP server. Plain terms for personal software." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="/fonts/outfit-800-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/plus-jakarta-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/fonts.css" />
+<link rel="stylesheet" href="/style.css" />
+<script>
+  // Apply the stored theme before first paint to prevent a flash of the
+  // wrong theme. Kept inline and tiny on purpose.
+  (function () {
+    try {
+      var t = null;
+      // ?theme=light|dark override — used for screenshots and testing.
+      var q = new URLSearchParams(location.search).get('theme');
+      if (q === 'light' || q === 'dark') t = q;
+      if (!t) t = localStorage.getItem('opencode-theme');
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+</head>
+<body>
+<div class="atmosphere" aria-hidden="true"></div>
+<div class="page-glow" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><svg class="brand-star" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 1.6l2.3 6.4 6.4 2.3-6.4 2.3-2.3 6.4-2.3-6.4L3.3 10.3l6.4-2.3z"/><path d="M19.2 15.4l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z" opacity=".55"/></svg>opencode<span class="dim">-suite</span></a>
+    <div class="nav-links" id="nav-links">
+      <a href="/#repos">Repos</a>
+      <a href="/#safety">Safety</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/data-access.html">Data</a>
+      <a href="/terms.html" aria-current="page">Terms</a>
+      <a class="btn btn-primary" href="https://github.com/YsinHsim/opencode-google">GitHub</a>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    </button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <p class="eyebrow">opencode suite</p>
+    <h1>Terms of service</h1>
+    <p class="lede">
+      Plain terms for personal software. These cover the opencode-suite installers and the
+      opencode-google MCP server.
+    </p>
+    <p class="updated" style="margin-top:1.25rem">Last updated: 25 October 2026</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="legal" style="padding-block:clamp(1.5rem,4vw,3rem)">
+
+      <h2>1. What these terms cover</h2>
+      <p>
+        These terms govern your use of the software at
+        <a href="https://github.com/YsinHsim/opencode-google">github.com/YsinHsim/opencode-google</a>,
+        <a href="https://github.com/YsinHsim/opencode-aztra">github.com/YsinHsim/opencode-aztra</a>,
+        and the opencode-bootstrap repository, together with this website. &ldquo;The software&rdquo; means
+        the installers and the local MCP server.
+      </p>
+      <p>
+        By installing or using the software you accept these terms. If you do not accept them,
+        do not install it.
+      </p>
+
+      <h2>2. Your own Google Cloud project</h2>
+      <p>
+        The opencode-google server does not ship with any credentials. You create an OAuth client
+        in <strong>your own</strong> Google Cloud project and authorise it with your own account.
+        Consequently:
+      </p>
+      <ul>
+        <li>You are the developer of record for that OAuth client, under your own agreement with Google.</li>
+        <li>The project operator has no access to your Google account, your credentials, or your data.</li>
+        <li>Compliance with Google's API terms is your responsibility when you create the client.</li>
+        <li>Any Google Cloud quota, billing or policy consequence lands on your account, not on the project operator.</li>
+      </ul>
+
+      <h2>3. Your responsibilities</h2>
+      <p>You agree to:</p>
+      <ul>
+        <li>Keep <code>client_secret.json</code> and <code>token.json</code> private and at mode 0600.</li>
+        <li>Never commit credentials to any repository, public or private.</li>
+        <li>Review what an AI agent proposes before you approve a destructive action. The preview exists for that reason, not as a formality.</li>
+        <li>Comply with any policy that applies to your workplace, including where company data is involved.</li>
+        <li>Not use the software to access a Google account you are not authorised to access.</li>
+      </ul>
+
+      <h2>4. No warranty</h2>
+      <p>
+        The software is provided <strong>&ldquo;as is&rdquo;</strong>, without warranty of any kind, express
+        or implied, including but not limited to warranties of merchantability, fitness for a
+        particular purpose, and non-infringement.
+      </p>
+      <p>
+        Specifically, and without limiting the above: no guarantee is made that the software is
+        free of defects, that it will perform a requested Google action correctly, that a
+        preview will always reflect the final state, or that Google will not change an API in a
+        way that breaks it.
+      </p>
+
+      <h2>5. Limitation of liability</h2>
+      <p>
+        To the maximum extent permitted by law, the project operator is not liable for any
+        indirect, incidental, special, consequential, or punitive damages, or for any loss of
+        data, profits, revenue, or goodwill, arising from your use of the software. This includes
+        damages arising from a Google action that was executed, from a token that expired, or
+        from a credential that was disclosed.
+      </p>
+      <p>
+        Because the software is distributed free of charge, the total aggregate liability of the
+        project operator is limited to the amount you paid for it, which is zero.
+      </p>
+
+      <h2>6. No support obligation</h2>
+      <p>
+        Support is provided on a best-effort, voluntary basis through the channels listed on the
+        <a href="/support.html">Support page</a>. There is no service level agreement and no
+        guarantee of a response time or of a fix.
+      </p>
+
+      <h2>7. Availability and changes</h2>
+      <p>
+        The software may be changed, renamed, deprecated, or have a repository made private at
+        any time and without notice. There is no commitment to backward compatibility between
+        versions.
+      </p>
+
+      <h2>8. Third-party services</h2>
+      <p>
+        The software interoperates with Google APIs, Aztra, OpenCode, GitHub, and whichever model
+        provider you configure. Those services are governed by their own terms, which you accept
+        separately. The project operator is not responsible for their availability, pricing, or
+        conduct.
+      </p>
+
+      <h2>9. Intellectual property</h2>
+      <p>
+        The opencode-google and opencode-aztra repositories are published publicly for you to
+        read, run, and adapt for personal use. &ldquo;OpenCode&rdquo; and &ldquo;Google&rdquo; are the property of their
+        respective owners. This project is not affiliated with, endorsed by, or sponsored by
+        Google LLC or by the OpenCode project.
+      </p>
+
+      <h2>10. Termination</h2>
+      <p>
+        You may stop using the software at any time by removing it and deleting the credential
+        files. Revoking the OAuth client at
+        <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>
+        ends Google-side access immediately.
+      </p>
+
+      <h2>11. Governing law</h2>
+      <p>
+        These terms are governed by the laws of Malaysia, without regard to conflict-of-law
+        provisions. Nothing here removes a right you have under mandatory consumer law in your
+        own jurisdiction.
+      </p>
+
+      <h2>12. Contact</h2>
+      <p>
+        Use the contact form at <a href="https://yasinhassim.vercel.app/">yasinhassim.vercel.app</a>.
+      </p>
+
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div>
+      <a class="brand" href="/" style="margin-bottom:.9rem"><svg class="brand-star" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 1.6l2.3 6.4 6.4 2.3-6.4 2.3-2.3 6.4-2.3-6.4L3.3 10.3l6.4-2.3z"/><path d="M19.2 15.4l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z" opacity=".55"/></svg>opencode<span class="dim">-suite</span></a>
+      <p style="color:var(--muted);font-size:.87rem;max-width:32ch">
+        Single-purpose installers for OpenCode. Local MCP servers, narrow scopes,
+        secrets that never leave your machine.
+      </p>
+    </div>
+    <div>
+      <h4>Repos</h4>
+      <ul class="foot-links">
+        <li><a href="https://github.com/YsinHsim/opencode-bootstrap">opencode-bootstrap</a></li>
+        <li><a href="https://github.com/YsinHsim/opencode-aztra">opencode-aztra</a></li>
+        <li><a href="https://github.com/YsinHsim/opencode-google">opencode-google</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Google app</h4>
+      <ul class="foot-links">
+        <li><a href="/privacy.html">Privacy policy</a></li>
+        <li><a href="/terms.html">Terms of service</a></li>
+        <li><a href="/support.html">Support</a></li>
+        <li><a href="/data-access.html">Data access</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul class="foot-links">
+        <li><a href="https://github.com/YsinHsim">GitHub</a></li>
+        <li><a href="https://yasinhassim.vercel.app/">Portfolio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Yasin Hassim · Kota Kinabalu, Malaysia</span>
+    <span class="mono">✦ no cookies · no trackers · no accounts</span>
+  </div>
+</footer>
+
+<script src="/main.js" defer></script>
+</body>
+</html>

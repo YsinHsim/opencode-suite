@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy policy — opencode suite</title>
+<meta name="description" content="How opencode-google accesses, uses, stores and shares Google user data. It runs on your machine. No data reaches a server operated by this project." />
+<meta name="theme-color" content="#fdf9f6" />
+<link rel="canonical" href="https://opencode-suite.vercel.app/privacy.html" />
+<meta property="og:title" content="Privacy policy — opencode suite" />
+<meta property="og:description" content="How opencode-google accesses, uses, stores and shares Google user data. It runs on your machine. No data reaches a server operated by this project." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="/fonts/outfit-800-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/plus-jakarta-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/fonts.css" />
+<link rel="stylesheet" href="/style.css" />
+<script>
+  // Apply the stored theme before first paint to prevent a flash of the
+  // wrong theme. Kept inline and tiny on purpose.
+  (function () {
+    try {
+      var t = null;
+      // ?theme=light|dark override — used for screenshots and testing.
+      var q = new URLSearchParams(location.search).get('theme');
+      if (q === 'light' || q === 'dark') t = q;
+      if (!t) t = localStorage.getItem('opencode-theme');
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+</head>
+<body>
+<div class="atmosphere" aria-hidden="true"></div>
+<div class="page-glow" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/"><svg class="brand-star" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 1.6l2.3 6.4 6.4 2.3-6.4 2.3-2.3 6.4-2.3-6.4L3.3 10.3l6.4-2.3z"/><path d="M19.2 15.4l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z" opacity=".55"/></svg>opencode<span class="dim">-suite</span></a>
+    <div class="nav-links" id="nav-links">
+      <a href="/#repos">Repos</a>
+      <a href="/#safety">Safety</a>
+      <a href="/privacy.html" aria-current="page">Privacy</a>
+      <a href="/data-access.html">Data</a>
+      <a href="/terms.html">Terms</a>
+      <a class="btn btn-primary" href="https://github.com/YsinHsim/opencode-google">GitHub</a>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    </button>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <p class="eyebrow">opencode-google · Google API Services</p>
+    <h1>Privacy policy</h1>
+    <p class="lede">
+      This policy covers <strong>opencode-google</strong>, the local MCP server distributed at
+      <a href="https://github.com/YsinHsim/opencode-google" style="color:var(--accent)">github.com/YsinHsim/opencode-google</a>,
+      and the other installers in the opencode suite.
+    </p>
+    <p class="updated" style="margin-top:1.25rem">Last updated: 25 October 2026</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="legal" style="padding-block:clamp(1.5rem,4vw,3rem)">
+
+      <h2>The short version</h2>
+      <p>
+        opencode-google is software you run on your own computer. It is not a hosted service.
+        Your Google data goes from your machine to Google's APIs and back. It is never sent to
+        a server operated by this project, because no such server exists. There is no account
+        to register and no backend that receives your data.
+      </p>
+
+      <div class="callout">
+        <strong>There is no &ldquo;opencode suite&rdquo; cloud.</strong> The repository, this website, and
+        the installer are the only things published. All Google API traffic originates from
+        the user's own device and terminates at Google.
+      </div>
+
+      <h2>What data is accessed</h2>
+      <p>
+        When you run <code>auth.py</code>, you grant an OAuth client that you created in your
+        own Google Cloud project access to the following scopes. Each one is the narrowest that
+        still supports the feature described.
+      </p>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Scope</th><th>Data reached</th><th>Why it is needed</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>calendar.events</code></td>
+              <td>Event titles, times, attendees, locations, descriptions</td>
+              <td>Read your schedule, find free slots, create events, and move or delete an event after you approve a preview</td>
+            </tr>
+            <tr>
+              <td><code>gmail.readonly</code></td>
+              <td>Message and thread contents, headers, labels</td>
+              <td>Search your mailbox and read a thread you asked about. The server has no ability to send, compose, or modify mail</td>
+            </tr>
+            <tr>
+              <td><code>drive.file</code></td>
+              <td>Only files this app created</td>
+              <td>Upload generated files and list what the app itself put there. Google restricts this scope to app-created files; the rest of your Drive is not reachable</td>
+            </tr>
+            <tr>
+              <td><code>documents</code></td>
+              <td>Docs the app creates or opens</td>
+              <td>Create and append to documents in the app folder, and read them back</td>
+            </tr>
+            <tr>
+              <td><code>spreadsheets</code></td>
+              <td>Sheets the app creates or opens</td>
+              <td>Create spreadsheets, read ranges, append rows</td>
+            </tr>
+            <tr>
+              <td><code>tasks</code></td>
+              <td>Task titles, notes, due dates</td>
+              <td>List tasks, create tasks, mark them complete</td>
+            </tr>
+            <tr>
+              <td><code>contacts.readonly</code></td>
+              <td>Contact names, emails, phone numbers</td>
+              <td>Look up a person by name so an event can be addressed correctly. Read-only</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>How data is used</h2>
+      <p>
+        Google user data is used for exactly one purpose: answering the request you made in
+        your own OpenCode session, on your own machine. For example, resolving &ldquo;move the HSSB
+        call to Friday 3pm&rdquo; by reading the event you named and writing back the new time.
+      </p>
+      <p>Google user data is <strong>not</strong> used to:</p>
+      <ul>
+        <li>Train or improve any machine learning model operated by this project;</li>
+        <li>Build a profile, advertise, retarget, or determine credit-worthiness;</li>
+        <li>Produce analytics about you or your organisation;</li>
+        <li>Provide any feature you did not ask for in that session.</li>
+      </ul>
+
+      <h2>How data is stored</h2>
+      <p>
+        Two credential files are written to your machine, both outside the repository and both
+        with file mode <code>0600</code> (owner read/write only):
+      </p>
+      <ul>
+        <li><code>~/.config/opencode/google/client_secret.json</code> — the OAuth client you created;</li>
+        <li><code>~/.config/opencode/google/token.json</code> — the refresh token issued after you consent.</li>
+      </ul>
+      <p>
+        Both paths are gitignored. No Google user data is written to disk by this server beyond
+        whatever Google's own client libraries cache in the access token. Content you ask it to
+        read is held in memory for the duration of the request and is not persisted by the
+        server.
+      </p>
+      <p>
+        Files the app creates in Google Drive, Docs or Sheets are stored in your Google account,
+        inside a folder named <code>opencode</code>, under your normal Google terms. Delete them
+        whenever you like; the app loses access as soon as you move them out of that folder.
+      </p>
+
+      <h2>How data is shared</h2>
+      <p>
+        It is not. The project operates no server that could receive your data. Your machine
+        talks directly to Google's API endpoints over TLS.
+      </p>
+      <p>
+        There is one nuance worth stating plainly: the code in your OpenCode session is executed
+        by the model provider <strong>you</strong> configured. If an MCP tool result is included
+        in the conversation that provider sees, that content reaches that provider under its own
+        terms. Choosing your provider, and what you ask the agent to read, is the control you
+        hold there. This server does not send anything to a model provider itself.
+      </p>
+
+      <h2>Google API Services User Data Policy</h2>
+      <p>
+        opencode-google's use and transfer of information received from Google APIs adheres to
+        the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API
+        Services User Data Policy</a>, including the Limited Use requirements. Specifically:
+      </p>
+      <ul>
+        <li>Data is used only to provide the user-facing feature the user requested.</li>
+        <li>Data is not transferred to third parties except as necessary to provide that feature, for security purposes, or to comply with law.</li>
+        <li>Data is not used for advertising, and is not sold.</li>
+        <li>No human reads your Google data. The project has no access to it; only you do.</li>
+        <li>Narrow scopes are requested. Gmail is read-only; the Drive scope is limited to app-created files.</li>
+      </ul>
+
+      <h2>Your control</h2>
+      <ul>
+        <li><strong>Revoke access</strong> at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>. This takes effect immediately and no reinstallation is needed.</li>
+        <li><strong>Delete the token</strong> by removing <code>~/.config/opencode/google/token.json</code>.</li>
+        <li><strong>Delete the client</strong> by removing the OAuth client in your own Google Cloud project. You created it; it belongs to you.</li>
+        <li><strong>Read the code</strong>. The repository is public; the scope list is in <code>lib/google_clients.py</code> and the full operating rules are in <code>SOP.md</code>.</li>
+      </ul>
+
+      <h2>Children</h2>
+      <p>
+        opencode-google is a developer tool intended for adults. It is not directed at children
+        under 13 and does not knowingly process their data.
+      </p>
+
+      <h2>Changes to this policy</h2>
+      <p>
+        Any change to how Google user data is handled will appear on this page with a new
+        &ldquo;last updated&rdquo; date, and in the repository's commit history. Because the software runs
+        locally, you can always read the exact version you are running.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about this policy or about Google data handling: use the contact form at
+        <a href="https://yasinhassim.vercel.app/">yasinhassim.vercel.app</a>.
+        For support, see <a href="/support.html">Support</a>. For the rules of use, see
+        <a href="/terms.html">Terms of service</a>. The email address registered with Google
+        as the app's support and developer contact is the one on file in the Google Cloud
+        project; it is not published here.
+      </p>
+
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div>
+      <a class="brand" href="/" style="margin-bottom:.9rem"><svg class="brand-star" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 1.6l2.3 6.4 6.4 2.3-6.4 2.3-2.3 6.4-2.3-6.4L3.3 10.3l6.4-2.3z"/><path d="M19.2 15.4l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z" opacity=".55"/></svg>opencode<span class="dim">-suite</span></a>
+      <p style="color:var(--muted);font-size:.87rem;max-width:32ch">
+        Single-purpose installers for OpenCode. Local MCP servers, narrow scopes,
+        secrets that never leave your machine.
+      </p>
+    </div>
+    <div>
+      <h4>Repos</h4>
+      <ul class="foot-links">
+        <li><a href="https://github.com/YsinHsim/opencode-bootstrap">opencode-bootstrap</a></li>
+        <li><a href="https://github.com/YsinHsim/opencode-aztra">opencode-aztra</a></li>
+        <li><a href="https://github.com/YsinHsim/opencode-google">opencode-google</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Google app</h4>
+      <ul class="foot-links">
+        <li><a href="/privacy.html">Privacy policy</a></li>
+        <li><a href="/terms.html">Terms of service</a></li>
+        <li><a href="/support.html">Support</a></li>
+        <li><a href="/data-access.html">Data access</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul class="foot-links">
+        <li><a href="https://github.com/YsinHsim">GitHub</a></li>
+        <li><a href="https://yasinhassim.vercel.app/">Portfolio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Yasin Hassim · Kota Kinabalu, Malaysia</span>
+    <span class="mono">✦ no cookies · no trackers · no accounts</span>
+  </div>
+</footer>
+
+<script src="/main.js" defer></script>
+</body>
+</html>
