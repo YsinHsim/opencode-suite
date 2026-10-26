@@ -17,6 +17,9 @@ const PORTFOLIO = 'https://yasinhassim.vercel.app/'
 /* ---------------------------------------------------------------- head */
 
 function head({ title, description, path }) {
+  // Live URLs are clean (/privacy, not /privacy.html) — canonical must match.
+  const canonicalPath = path.replace(/\.html$/, '')
+  const url = `${SITE}${canonicalPath}`
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -25,10 +28,19 @@ function head({ title, description, path }) {
 <title>${title}</title>
 <meta name="description" content="${description}" />
 <meta name="theme-color" content="#fdf9f6" />
-<link rel="canonical" href="${SITE}${path}" />
+<link rel="canonical" href="${url}" />
 <meta property="og:title" content="${title}" />
 <meta property="og:description" content="${description}" />
 <meta property="og:type" content="website" />
+<meta property="og:url" content="${url}" />
+<meta property="og:image" content="${SITE}/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="opencode suite" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="${title}" />
+<meta name="twitter:description" content="${description}" />
+<meta name="twitter:image" content="${SITE}/og-image.png" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="preload" href="/fonts/outfit-800-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/fonts/plus-jakarta-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -245,8 +257,12 @@ ${repoFooterLinks()}
 </footer>`
 }
 
-function page({ title, description, path, current, body }) {
+function page({ title, description, path, current, body, jsonld }) {
+  const structured = jsonld
+    ? `\n<script type="application/ld+json">\n${JSON.stringify(jsonld, null, 2)}\n</script>`
+    : ''
   return `${head({ title, description, path })}
+${structured}
 <body>
 <div class="atmosphere" aria-hidden="true"></div>
 <div class="page-glow" aria-hidden="true"></div>
@@ -1187,6 +1203,29 @@ const pages = [
     path: '/',
     current: 'home',
     body: indexBody,
+    jsonld: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: 'opencode suite',
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'macOS, Linux, Android (Termux)',
+        url: `${SITE}/`,
+        description:
+          'A set of single-purpose installers that give OpenCode memory of your real work: company tickets in Aztra and your Google Calendar, Gmail, Drive, Docs, Sheets and Tasks. Runs locally. No servers, no subscription.',
+        author: { '@id': `${SITE}/#yasin` },
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        '@id': `${SITE}/#yasin`,
+        name: 'Yasin Hassim',
+        url: 'https://yasinhassim.vercel.app/',
+        jobTitle: 'Software developer and system analyst',
+        address: { '@type': 'PostalAddress', addressLocality: 'Kota Kinabalu', addressRegion: 'Sabah', addressCountry: 'MY' },
+      },
+    ],
   },
   {
     file: 'privacy.html',
@@ -1230,6 +1269,22 @@ for (const p of pages) {
   writeFileSync(p.file, page(p))
   console.log(`wrote ${p.file}`)
 }
+
+/* ---------------------------------------------------------------- seo files */
+
+const today = new Date().toISOString().slice(0, 10)
+const sitemapUrls = ['', '/privacy', '/terms', '/support', '/data-access']
+  .map((u) => `  <url>\n    <loc>${SITE}${u}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`)
+  .join('\n')
+
+writeFileSync('public/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`)
+console.log('wrote public/robots.txt')
+
+writeFileSync(
+  'public/sitemap.xml',
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls}\n</urlset>\n`,
+)
+console.log('wrote public/sitemap.xml')
 
 writeFileSync('public/favicon.svg', favicon)
 console.log('wrote public/favicon.svg')
